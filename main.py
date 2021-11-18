@@ -41,7 +41,7 @@ def continue_button():
         f = open(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'rb')
     elif platform in 'linux':
-        f = open('~.player.nt', 'rb')
+        f = open('~//player.nt', 'rb')
     data = pickle.load(f)
     player = default.Player(
         data['NAME'],
@@ -63,7 +63,7 @@ def new_button():
         f = open(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
     elif platform in 'linux':
-        f = open('~.player.nt', 'wb')
+        f = open('~//player.nt', 'wb')
     pickle.dump(default.Player.new_save(), f)
     f.close()
     continue_button()
@@ -74,7 +74,7 @@ def save():
         f = open(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
     elif platform in 'linux':
-        f = open('~.player.nt', 'wb')
+        f = open('~//player.nt', 'wb')
     pickle.dump(player.save(), f)
     f.close()
 

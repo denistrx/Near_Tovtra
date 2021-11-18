@@ -2,6 +2,50 @@
 Python News
 +++++++++++
 
+What's New in Python 3.9.9 final?
+=================================
+
+*Release date: 2021-11-15*
+
+Core and Builtins
+-----------------
+
+- bpo-45738: Fix computation of error location for invalid continuation
+  characters in the parser. Patch by Pablo Galindo.
+
+Library
+-------
+
+- bpo-45235: Reverted an argparse bugfix that caused regression in the
+  handling of default arguments for subparsers.  This prevented leaf level
+  arguments from taking precedence over root level arguments.
+
+- bpo-45765: In importlib.metadata, fix distribution discovery for an empty
+  path.
+
+- bpo-45644: In-place JSON file formatting using ``python3 -m json.tool
+  infile infile`` now works correctly, previously it left the file empty.
+  Patch by Chris Wesseling.
+
+Documentation
+-------------
+
+- bpo-45772: ``socket.socket`` documentation is corrected to a class from a
+  function.
+
+- bpo-45392: Update the docstring of the :class:`type` built-in to remove a
+  redundant line and to mention keyword arguments for the constructor.
+
+Windows
+-------
+
+- bpo-45732: Updates bundled Tcl/Tk to 8.6.12.
+
+- bpo-45720: Internal reference to :file:`shlwapi.dll` was dropped to help
+  improve startup time. This DLL will no longer be loaded at the start of
+  every Python process.
+
+
 What's New in Python 3.9.8 final?
 =================================
 
