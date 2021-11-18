@@ -37,7 +37,7 @@ screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
 
 def continue_button():
     global player, MODE
-    if platform in 'win32' or platform in 'cygwin':
+    if platform in 'win32':
         f = open(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'rb')
     elif platform in 'linux':
@@ -59,7 +59,7 @@ def continue_button():
 
 
 def new_button():
-    if platform in 'win32' or platform in 'cygwin':
+    if platform in 'win32':
         f = open(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
     elif platform in 'linux':
@@ -70,7 +70,7 @@ def new_button():
 
 
 def save():
-    if platform in 'win32' or platform in 'cygwin':
+    if platform in 'win32':
         f = open(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
     elif platform in 'linux':
@@ -103,15 +103,19 @@ while running:
                 new_button()
         else:
             screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
-        if (
-            WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
-            HEIGHT / 3 < mouse[1] < HEIGHT / 3 + 84
+        if (platform in 'win32' and os.path.isfile(
+            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt')) or (
+            platform in 'linux' and os.path.isfile('~.player.nt')
         ):
-            screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
-            if click[0]:
-                continue_button()
-        else:
-            screen.blit(continue_active_image, (WIDTH / 3, HEIGHT / 3))
+            if (
+                WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
+                HEIGHT / 3 < mouse[1] < HEIGHT / 3 + 84
+            ):
+                screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
+                if click[0]:
+                    continue_button()
+            else:
+                screen.blit(continue_active_image, (WIDTH / 3, HEIGHT / 3))
         if (
             WIDTH / 3 < mouse[0] < WIDTH / 3 + 283) and (
             HEIGHT / 1.5 < mouse[1] < HEIGHT / 1.5 + 182

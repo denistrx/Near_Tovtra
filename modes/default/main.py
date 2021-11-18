@@ -97,55 +97,64 @@ class Player(pygame.sprite.Sprite):
             keys[pygame.K_DOWN]
         ):
             if keys[pygame.K_UP] and not keys[pygame.K_DOWN]:
+                self.anim_direction['left'] = False
+                self.anim_direction['right'] = False
                 if self.anim_coefficient == 20:
                     self.anim_coefficient = 0
                     self.image = self.skin['up_1']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['up_2']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
-            if keys[pygame.K_DOWN] and not keys[pygame.K_UP]:
+            elif keys[pygame.K_DOWN] and not keys[pygame.K_UP]:
+                self.anim_direction['left'] = False
+                self.anim_direction['right'] = False
                 if self.anim_coefficient == 20:
                     self.anim_coefficient = 0
                     self.image = self.skin['down_1']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['down_2']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
-            if (
+            elif (
                 keys[pygame.K_LEFT]) and (
                 not keys[pygame.K_RIGHT]) and (
                 not keys[pygame.K_UP]) and (
                 not keys[pygame.K_DOWN]
             ):
+                self.anim_direction['left'] = True
+                self.anim_direction['right'] = False
                 if self.anim_coefficient == 20:
                     self.anim_coefficient = 0
                     self.image = self.skin['left_run']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['left_norm']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
-            if (
+            elif (
                 keys[pygame.K_RIGHT]) and (
                 not keys[pygame.K_LEFT]) and (
                 not keys[pygame.K_UP]) and (
                 not keys[pygame.K_DOWN]
             ):
+                self.anim_direction['left'] = False
+                self.anim_direction['right'] = True
                 if self.anim_coefficient == 20:
                     self.anim_coefficient = 0
                     self.image = self.skin['right_run']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['right_norm']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-                    self.anim_coefficient += 1
+        else:
+            self.anim_coefficient = 0
+            if self.anim_direction['left']:
+                self.image = self.skin['left_norm']
+                self.rect = self.image.get_rect(center=(self.x, self.y))
+            elif self.anim_direction['right']:
+                self.image = self.skin['right_norm']
+                self.rect = self.image.get_rect(center=(self.x, self.y))
+        self.anim_coefficient += 1
 
     def update(self):
         keys = pygame.key.get_pressed()
