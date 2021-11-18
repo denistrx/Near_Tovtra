@@ -11,7 +11,7 @@ EXISTS = False
 
 class Player(pygame.sprite.Sprite):
     NAME = None
-    SPEED = 10
+    SPEED = 5
     X = WIDTH / 2
     Y = HEIGHT / 2
     x = X
@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
     skin_name = 'stepan'
     location_name = 'galya'
     bg = pygame.image.load(
-        'modes//default//locations//' + location_name + '.png')
+        'modes//default//locations//' + location_name + '.bmp')
     skin = {
         'left_norm': pygame.image.load(
             'modes//default//skins//' + skin_name + '//left_norm.png'),
