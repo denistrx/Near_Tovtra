@@ -1,5 +1,8 @@
 import pygame
 import pickle
+import os
+
+from sys import platform
 
 from modes.default import main as default
 from modes.seka import main as seka
@@ -34,7 +37,11 @@ screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
 
 def continue_button():
     global player, MODE
-    f = open('saves//player.nt', 'rb')
+    if platform in 'win32' or platform in 'cygwin':
+        f = open(
+            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'rb')
+    elif platform in 'linux':
+        f = open('~.player.nt', 'rb')
     data = pickle.load(f)
     player = default.Player(
         data['NAME'],
@@ -52,14 +59,22 @@ def continue_button():
 
 
 def new_button():
-    f = open('saves//player.nt', 'wb')
+    if platform in 'win32' or platform in 'cygwin':
+        f = open(
+            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
+    elif platform in 'linux':
+        f = open('~.player.nt', 'wb')
     pickle.dump(default.Player.new_save(), f)
     f.close()
     continue_button()
 
 
 def save():
-    f = open('saves//player.nt', 'wb')
+    if platform in 'win32' or platform in 'cygwin':
+        f = open(
+            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
+    elif platform in 'linux':
+        f = open('~.player.nt', 'wb')
     pickle.dump(player.save(), f)
     f.close()
 
