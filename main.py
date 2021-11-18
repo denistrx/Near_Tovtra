@@ -32,17 +32,35 @@ screen.blit(exit_image, (WIDTH / 3, HEIGHT / 1.5))
 screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
 
 
-def continue_button(save):
-    f = open('saves//' + save + '.txt', 'r')
-    player = f
+def continue_button():
+    global player, MODE
+    f = open('saves//player.nt', 'rb')
+    data = pickle.load(f)
+    player = default.Player(
+        data['NAME'],
+        data['SPEED'],
+        data['x'],
+        data['y'],
+        data['bg_x'],
+        data['bg_y'],
+        data['skin_name'],
+        data['location_name']
+    )
     f.close()
-    return player
+    all_sprites.add(player)
+    MODE = 'default'
 
 
 def new_button():
-    f = open('saves//save.pickle', 'wb')
-    obj = default.Player()
-    pickle.dump(obj, f)
+    f = open('saves//player.nt', 'wb')
+    pickle.dump(default.Player.new_save(), f)
+    f.close()
+    continue_button()
+
+
+def save():
+    f = open('saves//player.nt', 'wb')
+    pickle.dump(player.save(), f)
     f.close()
 
 
@@ -59,19 +77,21 @@ while running:
         screen.blit(menu_image, (0, 0))
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
+        if click[1]:
+            continue_button()
+            MODE = 'default'
         if (
             WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
             HEIGHT / 4 < mouse[1] < HEIGHT / 4 + 84
         ):
             screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
             if click[0]:
-                MODE = 'default'
-                player = default.Player()
-                all_sprites.add(player)
-
+                new_button()
         else:
             screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
     if MODE in 'default':
+        if keys[pygame.K_F5]:
+            save()
         all_sprites.update()
         screen.blit(player.bg, (player.bg_x, player.bg_y))
         all_sprites.draw(screen)

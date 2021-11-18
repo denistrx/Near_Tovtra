@@ -48,7 +48,24 @@ class Player(pygame.sprite.Sprite):
             'modes//default//skins//' + skin_name + '//down_2.png')
     }
 
-    def __init__(self):
+    def __init__(
+        self, NAME, SPEED, x, y, bg_x, bg_y, skin_name, location_name
+    ):
+        self.anim_direction = {
+            'left': True,
+            'right': True,
+            'up': True,
+            'down': True
+        }
+        self.anim_coefficient = 0
+        self.NAME = NAME
+        self.SPEED = SPEED
+        self.x = x
+        self.y = y
+        self.bg_x = bg_x
+        self.bg_y = bg_y
+        self.skin_name = skin_name
+        self.location_name = location_name
         pygame.sprite.Sprite.__init__(self)
         self.image = self.skin['left_norm']
         self.rect = self.image.get_rect()
@@ -84,17 +101,21 @@ class Player(pygame.sprite.Sprite):
                     self.anim_coefficient = 0
                     self.image = self.skin['up_1']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['up_2']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
             if keys[pygame.K_DOWN] and not keys[pygame.K_UP]:
                 if self.anim_coefficient == 20:
                     self.anim_coefficient = 0
                     self.image = self.skin['down_1']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['down_2']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
             if (
                 keys[pygame.K_LEFT]) and (
                 not keys[pygame.K_RIGHT]) and (
@@ -105,9 +126,11 @@ class Player(pygame.sprite.Sprite):
                     self.anim_coefficient = 0
                     self.image = self.skin['left_run']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['left_norm']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
             if (
                 keys[pygame.K_RIGHT]) and (
                 not keys[pygame.K_LEFT]) and (
@@ -118,11 +141,11 @@ class Player(pygame.sprite.Sprite):
                     self.anim_coefficient = 0
                     self.image = self.skin['right_run']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
+                    self.anim_coefficient += 1
                 elif self.anim_coefficient == 10:
                     self.image = self.skin['right_norm']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
-
-            self.anim_coefficient += 1
+                    self.anim_coefficient += 1
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -156,3 +179,29 @@ class Player(pygame.sprite.Sprite):
         else:
             self.update_vertical()
         self.update_anim()
+
+    def new_save():
+        data = {
+            'NAME': None,
+            'SPEED': 5,
+            'x': WIDTH / 2,
+            'y': HEIGHT / 2,
+            'bg_x': 0,
+            'bg_y': 0,
+            'skin_name': 'stepan',
+            'location_name': 'galya'
+        }
+        return data
+
+    def save(self):
+        data = {
+            'NAME': self.NAME,
+            'SPEED': self.SPEED,
+            'x': self.x,
+            'y': self.y,
+            'bg_x': self.bg_x,
+            'bg_y': self.bg_y,
+            'skin_name': self.skin_name,
+            'location_name': self.location_name
+        }
+        return data
