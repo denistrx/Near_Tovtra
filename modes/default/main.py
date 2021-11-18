@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
     skin_name = 'stepan'
     location_name = 'galya'
     bg = pygame.image.load(
-        'modes//default//locations//' + location_name + '.bmp')
+        'modes//default//locations//' + location_name + '.png')
     skin = {
         'left_norm': pygame.image.load(
             'modes//default//skins//' + skin_name + '//left_norm.png'),
