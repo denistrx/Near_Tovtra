@@ -66,14 +66,12 @@ while running:
             screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
             if click[0]:
                 MODE = 'default'
+                player = default.Player()
+                all_sprites.add(player)
 
         else:
             screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
     if MODE in 'default':
-        if not default.EXISTS:
-            player = default.Player()
-            all_sprites.add(player)
-            default.EXISTS = True
         all_sprites.update()
         screen.blit(player.bg, (player.bg_x, player.bg_y))
         all_sprites.draw(screen)
