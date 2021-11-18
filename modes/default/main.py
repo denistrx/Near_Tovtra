@@ -205,3 +205,6 @@ class Player(pygame.sprite.Sprite):
             'location_name': self.location_name
         }
         return data
+
+    def kill(self):
+        del self

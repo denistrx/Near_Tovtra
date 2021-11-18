@@ -87,23 +87,40 @@ while running:
             running = False
     keys = pygame.key.get_pressed()
     if keys[pygame.K_ESCAPE]:
-        running = False
+        save()
+        player.kill()
+        MODE = 'menu'
     if MODE in 'menu':
         screen.blit(menu_image, (0, 0))
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
-        if click[1]:
-            continue_button()
-            MODE = 'default'
         if (
             WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
             HEIGHT / 4 < mouse[1] < HEIGHT / 4 + 84
         ):
-            screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
+            screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
             if click[0]:
                 new_button()
         else:
-            screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
+            screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
+        if (
+            WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
+            HEIGHT / 3 < mouse[1] < HEIGHT / 3 + 84
+        ):
+            screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
+            if click[0]:
+                continue_button()
+        else:
+            screen.blit(continue_active_image, (WIDTH / 3, HEIGHT / 3))
+        if (
+            WIDTH / 3 < mouse[0] < WIDTH / 3 + 283) and (
+            HEIGHT / 1.5 < mouse[1] < HEIGHT / 1.5 + 182
+        ):
+            screen.blit(exit_image, (WIDTH / 3, HEIGHT / 1.5))
+            if click[0]:
+                running = False
+        else:
+            screen.blit(exit_active_image, (WIDTH / 3, HEIGHT / 1.5))
     if MODE in 'default':
         if keys[pygame.K_F5]:
             save()
