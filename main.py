@@ -108,7 +108,8 @@ while running:
             screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
         if (platform in 'win32' and os.path.isfile(
             'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt')) or (
-            platform in 'linux' and os.path.isfile('~.player.nt')
+            platform in 'linux' and os.path.isfile(
+                '//home//' + os.environ.get("USERNAME") + '//player.nt')
         ):
             if (
                 WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
