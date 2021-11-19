@@ -49,14 +49,9 @@ class Player(pygame.sprite.Sprite):
     }
 
     def __init__(
-        self, NAME, SPEED, x, y, bg_x, bg_y, skin_name, location_name
+        self, NAME, SPEED, x, y, bg_x, bg_y,
+        skin_name, location_name, anim_direction
     ):
-        self.anim_direction = {
-            'left': True,
-            'right': True,
-            'up': True,
-            'down': True
-        }
         self.anim_coefficient = 0
         self.NAME = NAME
         self.SPEED = SPEED
@@ -66,8 +61,18 @@ class Player(pygame.sprite.Sprite):
         self.bg_y = bg_y
         self.skin_name = skin_name
         self.location_name = location_name
+        self.anim_direction = anim_direction
         pygame.sprite.Sprite.__init__(self)
-        self.image = self.skin['left_norm']
+        if self.anim_direction['left']:
+            self.image = self.skin['left_norm']
+        elif self.anim_direction['right']:
+            self.image = self.skin['right_norm']
+        elif self.anim_direction['up']:
+            self.image = self.skin['up_1']
+        elif self.anim_direction['down']:
+            self.image = self.skin['down_1']
+        else:
+            self.image = self.skin['left_norm']
         self.rect = self.image.get_rect()
         self.rect = self.image.get_rect(center=(self.x, self.y))
 
@@ -97,6 +102,8 @@ class Player(pygame.sprite.Sprite):
             keys[pygame.K_DOWN]
         ):
             if keys[pygame.K_UP] and not keys[pygame.K_DOWN]:
+                self.anim_direction['down'] = False
+                self.anim_direction['up'] = True
                 self.anim_direction['left'] = False
                 self.anim_direction['right'] = False
                 if self.anim_coefficient == 20:
@@ -107,6 +114,8 @@ class Player(pygame.sprite.Sprite):
                     self.image = self.skin['up_2']
                     self.rect = self.image.get_rect(center=(self.x, self.y))
             elif keys[pygame.K_DOWN] and not keys[pygame.K_UP]:
+                self.anim_direction['down'] = True
+                self.anim_direction['up'] = False
                 self.anim_direction['left'] = False
                 self.anim_direction['right'] = False
                 if self.anim_coefficient == 20:
@@ -154,6 +163,12 @@ class Player(pygame.sprite.Sprite):
             elif self.anim_direction['right']:
                 self.image = self.skin['right_norm']
                 self.rect = self.image.get_rect(center=(self.x, self.y))
+            elif self.anim_direction['up']:
+                self.image = self.skin['up_1']
+                self.rect = self.image.get_rect(center=(self.x, self.y))
+            elif self.anim_direction['down']:
+                self.image = self.skin['down_1']
+                self.rect = self.image.get_rect(center=(self.x, self.y))
         self.anim_coefficient += 1
 
     def update(self):
@@ -198,7 +213,13 @@ class Player(pygame.sprite.Sprite):
             'bg_x': 0,
             'bg_y': 0,
             'skin_name': 'stepan',
-            'location_name': 'galya'
+            'location_name': 'galya',
+            'anim_direction': {
+                'left': False,
+                'right': False,
+                'up': False,
+                'down': False
+            }
         }
         return data
 
@@ -211,7 +232,8 @@ class Player(pygame.sprite.Sprite):
             'bg_x': self.bg_x,
             'bg_y': self.bg_y,
             'skin_name': self.skin_name,
-            'location_name': self.location_name
+            'location_name': self.location_name,
+            'anim_direction': self.anim_direction
         }
         return data
 

@@ -52,7 +52,8 @@ def continue_button():
         data['bg_x'],
         data['bg_y'],
         data['skin_name'],
-        data['location_name']
+        data['location_name'],
+        data['anim_direction']
     )
     f.close()
     all_sprites.add(player)
@@ -130,10 +131,8 @@ while running:
         else:
             screen.blit(exit_active_image, (WIDTH / 3, HEIGHT / 1.5))
     if MODE in 'default':
-        if keys[pygame.K_F5]:
-            save()
-        all_sprites.update()
         screen.blit(player.bg, (player.bg_x, player.bg_y))
+        all_sprites.update()
         all_sprites.draw(screen)
         if keys[pygame.K_F3]:
             MODE = 'seka'
