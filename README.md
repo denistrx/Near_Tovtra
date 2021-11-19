@@ -9,4 +9,4 @@ You need to install Git
 Windows:
     Run upgrade_windows.bat
 Linux:
-    Run upgrade_linux
+    Run upgrade_linux.
