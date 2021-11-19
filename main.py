@@ -53,7 +53,9 @@ def continue_button():
         data['bg_y'],
         data['skin_name'],
         data['location_name'],
-        data['anim_direction']
+        data['anim_direction'],
+        data['inventory_max_len'],
+        data['inventory']
     )
     f.close()
     all_sprites.add(player)
@@ -90,10 +92,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_ESCAPE]:
-        save()
-        player.kill()
-        MODE = 'menu'
     if MODE in 'menu':
         screen.blit(menu_image, (0, 0))
         mouse = pygame.mouse.get_pos()
@@ -131,6 +129,10 @@ while running:
         else:
             screen.blit(exit_active_image, (WIDTH / 3, HEIGHT / 1.5))
     if MODE in 'default':
+        if keys[pygame.K_ESCAPE]:
+            save()
+            player.exit()
+            MODE = 'menu'
         screen.blit(player.bg, (player.bg_x, player.bg_y))
         all_sprites.update()
         all_sprites.draw(screen)

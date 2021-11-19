@@ -47,10 +47,13 @@ class Player(pygame.sprite.Sprite):
         'down_2': pygame.image.load(
             'modes//default//skins//' + skin_name + '//down_2.png')
     }
+    inventory_max_len = 5
+    inventory = []
 
     def __init__(
         self, NAME, SPEED, x, y, bg_x, bg_y,
-        skin_name, location_name, anim_direction
+        skin_name, location_name, anim_direction,
+        inventory_max_len, inventory
     ):
         self.anim_coefficient = 0
         self.NAME = NAME
@@ -62,6 +65,8 @@ class Player(pygame.sprite.Sprite):
         self.skin_name = skin_name
         self.location_name = location_name
         self.anim_direction = anim_direction
+        self.inventory_max_len = inventory_max_len
+        self.inventory = inventory
         pygame.sprite.Sprite.__init__(self)
         if self.anim_direction['left']:
             self.image = self.skin['left_norm']
@@ -73,7 +78,6 @@ class Player(pygame.sprite.Sprite):
             self.image = self.skin['down_1']
         else:
             self.image = self.skin['left_norm']
-        self.rect = self.image.get_rect()
         self.rect = self.image.get_rect(center=(self.x, self.y))
 
     def update_horizontal(self):
@@ -219,7 +223,9 @@ class Player(pygame.sprite.Sprite):
                 'right': False,
                 'up': False,
                 'down': False
-            }
+            },
+            'inventory_max_len': 5,
+            'inventory': []
         }
         return data
 
@@ -233,9 +239,11 @@ class Player(pygame.sprite.Sprite):
             'bg_y': self.bg_y,
             'skin_name': self.skin_name,
             'location_name': self.location_name,
-            'anim_direction': self.anim_direction
+            'anim_direction': self.anim_direction,
+            'inventory_max_len': self.inventory_max_len,
+            'inventory': self.inventory
         }
         return data
 
-    def kill(self):
-        del self
+    def exit(self):
+        self.kill()
