@@ -136,13 +136,6 @@ while running:
         screen.blit(player.bg, (player.bg_x, player.bg_y))
         all_sprites.update()
         all_sprites.draw(screen)
-        if keys[pygame.K_F3]:
-            MODE = 'seka'
-    elif MODE in 'seka':
-        if not seka.EXISTS:
-            play = seka.Game()
-            seka.EXISTS = True
-        screen.blit(play.bg, (0, 0))
 
     pygame.display.flip()
 
