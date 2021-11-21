@@ -5,7 +5,6 @@ import os
 from sys import platform
 
 from modes.default import main as default
-from modes.seka import main as seka
 
 pygame.init()
 
