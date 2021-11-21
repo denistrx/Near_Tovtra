@@ -96,8 +96,8 @@ while running:
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
         if (
-            WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
-            HEIGHT / 4 < mouse[1] < HEIGHT / 4 + 84
+            WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
+            HEIGHT / 4 < mouse[1] < HEIGHT / 4 + 76
         ):
             screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
             if click[0]:
@@ -110,8 +110,8 @@ while running:
                 '//home//' + os.environ.get("USERNAME") + '//player.nt')
         ):
             if (
-                WIDTH / 3 < mouse[0] < WIDTH / 3 + 287) and (
-                HEIGHT / 3 < mouse[1] < HEIGHT / 3 + 84
+                WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
+                HEIGHT / 3 < mouse[1] < HEIGHT / 3 + 76
             ):
                 screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
                 if click[0]:
@@ -119,8 +119,8 @@ while running:
             else:
                 screen.blit(continue_active_image, (WIDTH / 3, HEIGHT / 3))
         if (
-            WIDTH / 3 < mouse[0] < WIDTH / 3 + 283) and (
-            HEIGHT / 1.5 < mouse[1] < HEIGHT / 1.5 + 182
+            WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
+            HEIGHT / 1.5 < mouse[1] < HEIGHT / 1.5 + 170
         ):
             screen.blit(exit_image, (WIDTH / 3, HEIGHT / 1.5))
             if click[0]:
