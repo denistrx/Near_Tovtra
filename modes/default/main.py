@@ -247,3 +247,4 @@ class Player(pygame.sprite.Sprite):
 
     def exit(self):
         self.kill()
+        print(123)
