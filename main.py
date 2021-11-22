@@ -27,6 +27,7 @@ exit_image = pygame.image.load('menu//images//exit.png')
 exit_active_image = pygame.image.load('menu//images//exit_active.png')
 continue_image = pygame.image.load('menu//images//continue.png')
 continue_active_image = pygame.image.load('menu//images//continue_active.png')
+sound = pygame.mixer.Sound('menu//sounds/menu.ogg')
 
 screen.blit(menu_image, (0, 0))
 screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
@@ -38,10 +39,10 @@ def continue_button():
     global player, MODE
     if platform in 'win32':
         f = open(
-            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'rb')
+            'C:\\users\\' + os.getlogin() + '\\player.nt', 'rb')
     elif platform in 'linux':
         f = open(
-            '//home//' + os.environ.get("USERNAME") + '//.player.nt', 'rb')
+            '//home//' + os.getlogin() + '//.player.nt', 'rb')
     data = pickle.load(f)
     player = default.Player(
         data['NAME'],
@@ -64,10 +65,10 @@ def continue_button():
 def new_button():
     if platform in 'win32':
         f = open(
-            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
+            'C:\\users\\' + os.getlogin() + '\\player.nt', 'wb')
     elif platform in 'linux':
         f = open(
-            '//home//' + os.environ.get("USERNAME") + '//.player.nt', 'wb')
+            '//home//' + os.getlogin() + '//.player.nt', 'wb')
     pickle.dump(default.Player.new_save(), f)
     f.close()
     continue_button()
@@ -76,10 +77,10 @@ def new_button():
 def save():
     if platform in 'win32':
         f = open(
-            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt', 'wb')
+            'C:\\users\\' + os.getlogin() + '\\player.nt', 'wb')
     elif platform in 'linux':
         f = open(
-            '//home//' + os.environ.get("USERNAME") + '//.player.nt', 'wb')
+            '//home//' + os.getlogin() + '//.player.nt', 'wb')
     pickle.dump(player.save(), f)
     f.close()
 
@@ -101,13 +102,14 @@ while running:
         ):
             screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
             if click[0]:
+                sound.play()
                 new_button()
         else:
             screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
         if (platform in 'win32' and os.path.isfile(
-            'C:\\users\\' + os.environ.get("USERNAME") + '\\player.nt')) or (
+            'C:\\users\\' + os.getlogin() + '\\player.nt')) or (
             platform in 'linux' and os.path.isfile(
-                '//home//' + os.environ.get("USERNAME") + '//player.nt')
+                '//home//' + os.getlogin() + '//.player.nt')
         ):
             if (
                 WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
