@@ -30,9 +30,9 @@ continue_active_image = pygame.image.load('menu//images//continue_active.png')
 sound = pygame.mixer.Sound('menu//sounds/menu.ogg')
 
 screen.blit(menu_image, (0, 0))
-screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
-screen.blit(exit_image, (WIDTH / 3, HEIGHT / 1.5))
-screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
+screen.blit(new_image, (WIDTH / 2 - 265 / 2, HEIGHT / 4))
+screen.blit(continue_image, (WIDTH / 2 - 265 / 2, HEIGHT / 3))
+screen.blit(exit_image, (WIDTH / 2 - 265 / 2, HEIGHT / 1.5))
 
 
 def continue_button():
@@ -100,12 +100,12 @@ while running:
             WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
             HEIGHT / 4 < mouse[1] < HEIGHT / 4 + 76
         ):
-            screen.blit(new_image, (WIDTH / 3, HEIGHT / 4))
+            screen.blit(new_image, (WIDTH / 2 - 265 / 2, HEIGHT / 4))
             if click[0]:
                 sound.play()
                 new_button()
         else:
-            screen.blit(new_active_image, (WIDTH / 3, HEIGHT / 4))
+            screen.blit(new_active_image, (WIDTH / 2 - 265 / 2, HEIGHT / 4))
         if (platform in 'win32' and os.path.isfile(
             'C:\\users\\' + os.getlogin() + '\\player.nt')) or (
             platform in 'linux' and os.path.isfile(
@@ -115,22 +115,31 @@ while running:
                 WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
                 HEIGHT / 3 < mouse[1] < HEIGHT / 3 + 76
             ):
-                screen.blit(continue_image, (WIDTH / 3, HEIGHT / 3))
+                screen.blit(
+                    continue_image,
+                    (WIDTH / 2 - 265 / 2, HEIGHT / 3)
+                )
                 if click[0]:
+                    sound.play()
                     continue_button()
             else:
-                screen.blit(continue_active_image, (WIDTH / 3, HEIGHT / 3))
+                screen.blit(
+                    continue_active_image,
+                    (WIDTH / 2 - 265 / 2, HEIGHT / 3)
+                )
         if (
             WIDTH / 3 < mouse[0] < WIDTH / 3 + 265) and (
             HEIGHT / 1.5 < mouse[1] < HEIGHT / 1.5 + 170
         ):
-            screen.blit(exit_image, (WIDTH / 3, HEIGHT / 1.5))
+            screen.blit(exit_image, (WIDTH / 2 - 265 / 2, HEIGHT / 1.5))
             if click[0]:
+                sound.play()
                 running = False
         else:
-            screen.blit(exit_active_image, (WIDTH / 3, HEIGHT / 1.5))
+            screen.blit(exit_active_image, (WIDTH / 2 - 265 / 2, HEIGHT / 1.5))
     if MODE in 'default':
         if keys[pygame.K_ESCAPE]:
+            sound.play()
             save()
             player.exit()
             MODE = 'menu'
